@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" width="512" height="512">
+  <!-- T761: the family fox head logo, traced by hand from brand/fox-head-square-512.png (same geometry, same sampled
+       colours, flat polygons; no redesign). The left half is drawn once and mirrored; the chin triangles are holes
+       (transparent), as in the original. Each eye is its own shape (#eye-r = the viewer's right) so a product mark
+       can recolour one eye and nothing else. -->
+  <defs>
+    <!-- the cheek's orange/coral split is an arc, as in the original: a circle centred far below the chin -->
+    <radialGradient id="cheek" gradientUnits="userSpaceOnUse" cx="256" cy="700" r="440">
+      <stop offset="0" stop-color="#e16556"/><stop offset="0.952" stop-color="#e16556"/><stop offset="0.968" stop-color="#e57441"/><stop offset="1" stop-color="#e57441"/>
+    </radialGradient>
+    <linearGradient id="nose" gradientUnits="userSpaceOnUse" x1="0" y1="262" x2="0" y2="442">
+      <stop offset="0" stop-color="#ed7d3d"/><stop offset="0.45" stop-color="#ed7d3d"/><stop offset="0.62" stop-color="#e26358"/><stop offset="1" stop-color="#e26358"/>
+    </linearGradient>
+    <g id="half">
+      <polygon fill="#2f4196" points="256,116 204,116 90,4 69,4 67,192 8,322 14,336 256,510"/>
+      <polygon fill="#e46458" points="94,40 94,174 181,128"/>
+      <polygon fill="url(#cheek)" points="90,213 216,281 216,406 166,325 40,325"/>
+    </g>
+    <mask id="chin" maskUnits="userSpaceOnUse" x="0" y="0" width="512" height="512">
+      <rect width="512" height="512" fill="#fff"/>
+      <polygon fill="#000" points="52,338 152,338 205,455"/>
+      <polygon fill="#000" points="460,338 360,338 307,455"/>
+    </mask>
+  </defs>
+  <g mask="url(#chin)">
+    <use xlink:href="#half"/>
+    <use xlink:href="#half" transform="matrix(-1 0 0 1 512 0)"/>
+    <!-- the two mirrored halves meet at x=256: this strip closes the hairline seam a renderer can leave there -->
+    <polygon fill="#2f4196" points="252,116 260,116 260,504 256,510 252,504"/>
+    <polygon fill="url(#nose)" points="190,143 322,143 404,197 280,265 280,442 232,442 232,265 108,197"/>
+    <polygon id="eye-l" fill="#2f4196" points="157,254 201,262 203,284 186,293 168,291 158,279"/>
+    <polygon id="eye-r" fill="#2f4196" points="355,254 311,262 309,284 326,293 344,291 354,279"/>
+  </g>
+</svg>

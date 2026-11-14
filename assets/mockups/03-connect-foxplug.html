@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Connect FoxPlug</title><style>
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#172B4D;background:#F4F5F7}
+.top{height:48px;background:#fff;border-bottom:1px solid #DFE1E6;display:flex;align-items:center;padding:0 20px;gap:18px;color:#42526E}
+.top b{color:#172B4D}.wrap{display:flex;min-height:calc(100vh - 48px - 36px)}
+.side{width:230px;background:#fff;border-right:1px solid #DFE1E6;padding:16px 0;color:#42526E}
+.side div{padding:7px 20px}.side .on{background:#DEEBFF;color:#0747A6;border-left:3px solid #0052CC;padding-left:17px;font-weight:600}
+.main{flex:1;padding:24px 36px;max-width:1010px}
+h2{font-size:24px;margin:0 0 6px}h3{font-size:16px;margin:0 0 10px}p{margin:0 0 12px}
+.cols{display:flex;gap:40px;margin:18px 0 26px}.col{flex:1}
+.row{display:flex;gap:10px;align-items:center;margin:0 0 8px}
+.loz{background:#DFE1E6;border-radius:3px;font-size:11px;font-weight:700;text-transform:uppercase;padding:1px 6px;color:#42526E;min-width:52px;text-align:center}
+.loz.Bug{background:#FFEBE6;color:#BF2600}.loz.Story{background:#E3FCEF;color:#006644}
+a{color:#0052CC;text-decoration:none}
+.btn{display:inline-block;border-radius:3px;padding:7px 14px;font-weight:600;background:#DFE1E6;color:#172B4D;margin-right:8px}
+.btn.pri{background:#0052CC;color:#fff}.btn.off{opacity:.45}
+.msg{border-radius:3px;padding:12px 16px;margin:0 0 16px;border-left:4px solid}
+.msg.ok{background:#E3FCEF;border-color:#00875A}.msg.warn{background:#FFFAE6;border-color:#FF991F}.msg.err{background:#FFEBE6;border-color:#DE350B}
+.help{color:#6B778C;font-size:12px;margin:2px 0 12px}.err-t{color:#DE350B;font-size:12px;margin:2px 0 12px}
+label{display:block;font-size:12px;font-weight:700;color:#5E6C84;margin:12px 0 4px}
+.field{border:2px solid #DFE1E6;background:#fff;border-radius:3px;padding:7px 10px;width:420px;min-height:34px}.field.bad{border-color:#DE350B}
+ol{padding-left:20px;margin:0 0 10px}li{margin:0 0 4px}
+.foot{height:36px;display:flex;align-items:center;padding:0 20px;font-size:12px;color:#6B778C;border-top:1px solid #DFE1E6;background:#fff}
+.tip{display:inline-block;background:#172B4D;color:#fff;border-radius:3px;padding:6px 10px;font-size:12px;max-width:360px;margin-top:6px}
+.fp{background:#0B1020;color:#E2E8F0}.fp .top{background:#111733;border-color:#2a3358;color:#CBD5E1}.fp .top b{color:#fff}
+.card{background:#151B3A;border:1px solid #2a3358;border-radius:12px;padding:18px 20px;max-width:780px}
+.card h3{color:#fff}.pill{display:inline-block;background:#F27A3A;color:#111733;border-radius:999px;font-size:11px;font-weight:800;padding:2px 10px;margin-bottom:10px}
+.fp .btn{background:#2a3358;color:#fff}.fp .btn.pri{background:#F27A3A;color:#111733}.fp .foot{background:#111733;border-color:#2a3358;color:#94A3B8}
+</style></head><body>
+<div class="top"><b>Jira</b><span>Projects</span><span>Acme Web (ACME)</span></div>
+<div class="wrap"><div class="side"><div>Backlog</div><div>Board</div><div>Timeline</div><div class="on">Shipped this week (FoxPlug)</div><div>Project settings</div></div>
+<div class="main"><h3>Connect FoxPlug</h3><p>This page needs one plain key from FoxPlug. It is free and takes a minute:</p><ol><li>Press &quot;Open FoxPlug&quot; below and sign in. It takes you to the &quot;Make a plain key&quot; button.</li><li>Press &quot;Make a plain key&quot;, then &quot;Copy key&quot;. The key is shown once.</li><li>Come back here, paste it into &quot;Agent key&quot;, pick your project and press Save.</li></ol><p><a>Open FoxPlug</a> &nbsp;<span class="help">https://foxplug.com/app/?connect=plain-key</span></p><div class="help">The key is stored as a Forge secret. This app never shows it again and never sends it anywhere except FoxPlug. If you lose it, make a new one in FoxPlug and replace it here.</div><label>FoxPlug project name</label><div class="field">Acme Web</div><label>Public changelog name (optional)</label><div class="field">acme</div><label>Agent key</label><div class="field">fpk_…</div><span class="btn pri">Save</span><span class="btn">Check the key</span></div></div>
+<div class="foot">Mockup of FoxPlug for Jira. The real page runs inside a Jira project and shows the same words.</div></body></html>

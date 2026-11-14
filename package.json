@@ -1,0 +1,18 @@
+{
+  "name": "foxplug-for-jira",
+  "version": "0.2.0",
+  "private": true,
+  "description": "FoxPlug for Jira: a Forge app that sends what a team closed this week to FoxPlug as one work record.",
+  "scripts": {
+    "test": "node --test",
+    "validate:manifest": "node scripts/validate-manifest.cjs",
+    "mockups": "node scripts/render-mockups.cjs"
+  },
+  "dependencies": {
+    "@forge/api": "^6.0.0",
+    "@forge/bridge": "^5.0.0",
+    "@forge/kvs": "^2.1.2",
+    "@forge/react": "^11.0.0",
+    "@forge/resolver": "^1.6.0"
+  }
+}
