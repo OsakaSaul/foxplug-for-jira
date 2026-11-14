@@ -40,7 +40,7 @@ const App = () => {
   const send = async () => {
     setBusy('sending'); setNote(null);
     const r = await invoke('sendToFoxPlug');
-    setNote({ appearance: r && r.ok ? 'confirmation' : 'warning', text: (r && r.message) || 'FoxPlug did not answer this request.' });
+    setNote({ appearance: r && r.ok ? 'confirmation' : 'warning', text: (r && r.message) || 'FoxPlug did not answer this request.', link: (r && r.ok && r.openUrl) || '' });
     setBusy('');
   };
 
@@ -62,7 +62,7 @@ const App = () => {
     <Stack space="space.200">
       <Heading as="h2">{COPY.title}</Heading>
       <Text>{COPY.intro}</Text>
-      {note && <SectionMessage appearance={note.appearance}><Text>{note.text}</Text></SectionMessage>}
+      {note && <SectionMessage appearance={note.appearance}><Text>{note.link ? <Tooltip text="Opens FoxPlug in a new tab, on the draft made from these issues."><Link href={note.link} openNewTab>{note.text}</Link></Tooltip> : note.text}</Text></SectionMessage>}
 
       <Inline space="space.300" alignBlock="start">
         <Box>

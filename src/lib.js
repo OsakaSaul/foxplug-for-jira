@@ -40,7 +40,8 @@ const COPY = {
   },
   messages: {
     saved: 'Saved.',
-    sent: 'Sent to FoxPlug as a work record. Open FoxPlug to see it; nothing was posted.',
+    sent: 'Sent. Open your draft in FoxPlug.',
+    sentNoLink: 'Sent to FoxPlug as a work record. Open FoxPlug to see it; nothing was posted.',
     keyOk: 'FoxPlug accepted this key. You can send work records.',
     badKey: 'FoxPlug did not accept this agent key. Make a new one with "Make a plain key" in FoxPlug (steps below) and paste it again.',
     pause: 'FoxPlug asked for a short pause. Try again in a minute.',
@@ -104,12 +105,21 @@ function jiraStatusMessage(status) {
   return 'Jira did not return the issues. Try again in a moment.';
 }
 
-/** One plain block FoxPlug can turn into a milestone. No model, no invention: only the issue keys and summaries. */
+/** One plain block FoxPlug can turn into a milestone. No model, no invention: only the issue keys and summaries.
+ *  The first line becomes the milestone title in FoxPlug, so it carries plain words only ("Closed 5 issues: welcome email, dark mode, ...");
+ *  the issue keys stay in the lines after it. */
 function buildSummary(items, projectName) {
   if (!items.length) return '';
+  const n = items.length;
+  const plain = items.map((r) => String(r.summary || '').trim()).filter(Boolean);
+  const shown = plain.slice(0, 3);
+  let head = `Closed ${n} issue${n === 1 ? '' : 's'}`;
+  if (shown.length) head += `: ${shown.join(', ')}`;
+  if (plain.length > shown.length) head += `, and ${plain.length - shown.length} more`;
+  head = head.slice(0, 180);
   const lines = items.map((r) => `${r.key}: ${r.summary}`);
-  const head = `${projectName || 'The team'} closed ${items.length} issue${items.length === 1 ? '' : 's'} this week.`;
-  return `${head} ${lines.join('; ')}`.slice(0, 1800);
+  const body = `${projectName || 'The team'} closed ${n} issue${n === 1 ? '' : 's'} this week. ${lines.join('; ')}`;
+  return `${head}\n\n${body}`.slice(0, 1800);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -118,7 +128,7 @@ function buildSummary(items, projectName) {
 
 /** The JSON-RPC body for FoxPlug's record_work tool (capture is free and posts nothing). */
 function recordWorkBody(foxplugProject, summary) {
-  return { jsonrpc: '2.0', id: 1, method: 'tools/call', params: { name: 'record_work', arguments: { project: String(foxplugProject), summary: String(summary) } } };
+  return { jsonrpc: '2.0', id: 1, method: 'tools/call', params: { name: 'record_work', arguments: { project: String(foxplugProject), summary: String(summary), from_app: 'jira' } } };
 }
 
 /** The JSON-RPC body that only asks which tools the key may use (used to check a key without sending anything). */
@@ -149,7 +159,18 @@ function parseMcpReply(status, data) {
   const r = data.result || {};
   const text = r.content && r.content[0] && r.content[0].text;
   if (r.isError) return { ok: false, message: String(text || 'FoxPlug could not do that.').slice(0, 300) };
-  return { ok: true, message: COPY.messages.sent };
+  // The reply text is JSON with the milestone and project ids; the link is built here from the ids (never taken from the reply as-is).
+  let body = null;
+  try { body = JSON.parse(String(text || '')); } catch (e) { body = null; }
+  const link = draftLink(body && body.project_id, body && body.milestone_id);
+  return link ? { ok: true, message: COPY.messages.sent, openUrl: link } : { ok: true, message: COPY.messages.sentNoLink };
+}
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+/** The link to the draft in FoxPlug: only ever foxplug.com, only with two real ids. */
+function draftLink(projectId, milestoneId) {
+  if (!UUID.test(String(projectId || '')) || !UUID.test(String(milestoneId || ''))) return '';
+  return `https://foxplug.com/app/?project=${projectId}&milestone=${milestoneId}&from=jira`;
 }
 
 /** Reads FoxPlug's reply to tools/list into { ok, message }: a key that FoxPlug accepts answers with the tool list. */
@@ -252,6 +273,6 @@ function friendlyError(err, where) {
 module.exports = {
   MCP_ENDPOINT, KEY_PAGE, MAX_ISSUES, COPY,
   isProjectKey, buildJql, toShippedItems, jiraStatusMessage, buildSummary,
-  recordWorkBody, toolsListBody, projectsBody, parseProjects, parseMcpReply, parseKeyCheck, feedUrl, toFeedItems, feedStatusMessage, isAgentKey,
+  recordWorkBody, toolsListBody, projectsBody, parseProjects, parseMcpReply, draftLink, parseKeyCheck, feedUrl, toFeedItems, feedStatusMessage, isAgentKey,
   validateSettings, sendBlockedReason, shippedView, feedView, friendlyError,
 };

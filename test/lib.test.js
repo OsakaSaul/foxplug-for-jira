@@ -58,9 +58,11 @@ test('jiraStatusMessage says what to do for each kind of Jira refusal, with no c
 
 test('buildSummary is built only from keys and summaries', () => {
   const s = lib.buildSummary([{ key: 'ACME-1', summary: 'Fix login' }, { key: 'ACME-2', summary: 'Add export' }], 'Acme');
-  assert.strictEqual(s, 'Acme closed 2 issues this week. ACME-1: Fix login; ACME-2: Add export');
+  assert.strictEqual(s, 'Closed 2 issues: Fix login, Add export\n\nAcme closed 2 issues this week. ACME-1: Fix login; ACME-2: Add export');
+  assert.doesNotMatch(s.split('\n')[0], /[A-Z]+-\d+/, 'the first line (the FoxPlug title) has no issue keys');
+  assert.strictEqual(lib.buildSummary([1, 2, 3, 4, 5].map((i) => ({ key: 'K-' + i, summary: 'item ' + i })), 'Acme').split('\n')[0], 'Closed 5 issues: item 1, item 2, item 3, and 2 more');
   assert.strictEqual(lib.buildSummary([], 'Acme'), '');
-  assert.match(lib.buildSummary([{ key: 'A-1', summary: 'x' }], ''), /^The team closed 1 issue this week\./);
+  assert.match(lib.buildSummary([{ key: 'A-1', summary: 'x' }], ''), /\n\nThe team closed 1 issue this week\./);
   assert.ok(lib.buildSummary(Array(25).fill({ key: 'ACME-1', summary: 'y'.repeat(160) }), 'A').length <= 1800);
 });
 
@@ -69,7 +71,7 @@ test('buildSummary is built only from keys and summaries', () => {
 test('recordWorkBody calls record_work with project and summary only', () => {
   const b = lib.recordWorkBody('My Project', 'text');
   assert.strictEqual(b.method, 'tools/call');
-  assert.deepStrictEqual(b.params, { name: 'record_work', arguments: { project: 'My Project', summary: 'text' } });
+  assert.deepStrictEqual(b.params, { name: 'record_work', arguments: { project: 'My Project', summary: 'text', from_app: 'jira' } });
 });
 
 test('toolsListBody only asks which tools the key may use', () => {
@@ -78,6 +80,11 @@ test('toolsListBody only asks which tools the key may use', () => {
 
 test('parseMcpReply turns every FoxPlug answer into a calm message', () => {
   assert.strictEqual(lib.parseMcpReply(200, { result: { content: [{ text: '{}' }] } }).ok, true);
+  const P = '11111111-2222-3333-4444-555555555555', M = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
+  const sent = lib.parseMcpReply(200, { result: { content: [{ text: JSON.stringify({ project_id: P, milestone_id: M }) }] } });
+  assert.strictEqual(sent.message, 'Sent. Open your draft in FoxPlug.');
+  assert.strictEqual(sent.openUrl, `https://foxplug.com/app/?project=${P}&milestone=${M}&from=jira`);
+  assert.strictEqual(lib.parseMcpReply(200, { result: { content: [{ text: JSON.stringify({ project_id: 'x/../y', milestone_id: M }) }] } }).openUrl, undefined, 'a reply with a bad id gives no link');
   assert.match(lib.parseMcpReply(401, null).message, /agent key/);
   assert.match(lib.parseMcpReply(403, null).message, /agent key/);
   assert.match(lib.parseMcpReply(429, null).message, /pause/);
