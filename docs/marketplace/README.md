@@ -1,5 +1,8 @@
 # FoxPlug for Jira: free Atlassian Marketplace listing pack (T2001, 2026-11-15)
 
+> **READ THIS FIRST (T2028, 2026-11-15). List the NEW app, never the Codegeist one.** The Codegeist judges install the app `d28b29f7-29ac-41cc-8f79-efc69b579d78` through https://foxplug.com/jira/install. Atlassian says an app submitted for Marketplace listing, or one with a license in its manifest, can no longer be shared by installation link. So that app must NEVER be submitted. The Marketplace copy is a separate registered app, **`d71e9ca3-b426-4c9e-8d31-0e2a2908ba55`** (folder `marketplace-app/`: same code, scopes `read:jira-work` and `storage:app`, egress foxplug.com, no licensing block; deployed to production, not installed, not shared). Every Marketplace step below uses the NEW id.
+
+
 Goal: list the app as a **Free** Marketplace app so the Codegeist 2026 bonus "Best Marketplace published app" ($1,500 x 6; "published or submitted for listing, link the listing or review ticket") and Jira buyers can reach it. Nothing here was submitted: creating the partner profile and submitting need Saul's Atlassian login.
 
 Requirements were read on 2026-11-15 from developer.atlassian.com: getting-started, listing-forge-apps, building-your-presence-on-marketplace (the limits below), security-privacy-tab, security-requirements, app-approval-guidelines. The listing-fields page is dated 2020, so the Marketplace form may differ slightly; `listing.json` has every value, and `node scripts/check-marketplace.cjs` re-checks all limits and image sizes.
@@ -30,7 +33,7 @@ Live pages created for the listing (in the lcncagents repo, commit fd97ac92): ht
 1. Go to https://marketplace.atlassian.com and sign in with osaka.saul@gmail.com (the account that owns the Forge app).
 2. Profile menu, **Manage vendor account**. If there is no vendor yet: enter FoxPlug's organisation and contact details (name FoxPlug, the Osaka address from https://foxplug.com/legal/terms, hello@foxplug.com), press **Create vendor**. Paste partner name and description from `listing.json`, upload `partner-logo-144.png`.
 3. Make sure one contact on the partner profile is registered on https://community.developer.atlassian.com (Atlassian requires it). If not, sign in there once with the same account.
-4. Open https://developer.atlassian.com/console/myapps/d28b29f7-29ac-41cc-8f79-efc69b579d78 , **Distribution**: turn sharing on and publish the developer space if it asks (Atlassian's listing steps require this).
+4. Open https://developer.atlassian.com/console/myapps/d71e9ca3-b426-4c9e-8d31-0e2a2908ba55 , **Distribution**: turn sharing on and publish the developer space if it asks (Atlassian's listing steps require this).
 5. In the Marketplace press **Publish new app** (the app creation form), choose Forge, link the app by that ID, choose payment model **Free**, accept the Marketplace Partner Agreement.
 6. Paste the text fields from `listing.json` (name, tagline, summary, more details, release summary, release notes), the three highlights (title, summary, caption, screenshot and cropped screenshot each), the 2 extras, upload `icon-144.png` and the banner. Support/documentation/tracker URLs are in `listing.json` (`urls`). Pick the closest category.
 7. **Privacy and security** tab: answer from `privacy-security-answers.md`. Privacy policy link: https://foxplug.com/jira/privacy. For the end-user agreement either link https://foxplug.com/legal/terms or adopt Atlassian's customizable end-user agreement (your choice).

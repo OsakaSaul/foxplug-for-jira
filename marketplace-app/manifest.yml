@@ -1,0 +1,30 @@
+# FoxPlug for Jira (Codegeist 2026 entry, T1861). A Jira project page, "Shipped this week":
+# it lists the issues the team closed in the last 7 days and sends them to FoxPlug as ONE
+# work record (a draft milestone the owner approves; nothing is posted). Read-only toward Jira.
+modules:
+  jira:projectPage:
+    - key: foxplug-shipped-week
+      title: Shipped this week (FoxPlug)
+      resource: main
+      render: native # UI Kit (not Custom UI): the resource is the component file
+      resolver:
+        function: resolver
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: src/frontend/index.jsx
+app:
+  runtime:
+    name: nodejs22.x
+  id: ari:cloud:ecosystem::app/d71e9ca3-b426-4c9e-8d31-0e2a2908ba55
+permissions:
+  scopes:
+    - read:jira-work
+    - storage:app
+  external:
+    fetch:
+      backend:
+        - address: foxplug.com
+          inScopeEUD: true # issue keys and titles are sent to FoxPlug, so this egress is in scope for end-user data
