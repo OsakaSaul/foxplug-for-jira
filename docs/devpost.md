@@ -27,7 +27,11 @@ Your team closes tickets all week. One Jira page turns them into a draft custome
 ## 3. Category and bonus prizes
 
 - Category: **Apps for Software Teams**.
-- Bonus prizes: **none claimed.** The app is not published to the Marketplace, has no Rovo agent module, does not expose an MCP server and does not use the Teamwork Graph, so it does not qualify, and we would rather say so than stretch the wording.
+- Bonus prizes: **none claimed yet.** (If the Marketplace listing is submitted before the deadline, replace this line with the text in section 3b.) The app is not yet published to the Marketplace, has no Rovo agent module, does not expose an MCP server and does not use the Teamwork Graph, so it does not qualify, and we would rather say so than stretch the wording.
+
+### 3b. Bonus prize text for "Best Marketplace published app" (paste ONLY after the listing is submitted or approved; fill the link)
+
+Bonus prize: Best Marketplace published app. FoxPlug for Jira is listed on the Atlassian Marketplace as a free Forge app: <PASTE LISTING OR REVIEW-TICKET URL>. The listing has its own privacy policy (https://foxplug.com/jira/privacy), support page (https://foxplug.com/jira/support), three highlights with screenshots and a completed Privacy and security tab. The app asks for one Jira scope (read:jira-work), stores its settings in Forge storage with the key as a Forge secret, and talks to one declared address (foxplug.com). Status when submitted: <submitted on DATE / approved on DATE>. Everything for the listing is in docs/marketplace/ of the repository.
 
 ## 4. Inspiration
 

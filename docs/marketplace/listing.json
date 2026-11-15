@@ -1,0 +1,50 @@
+{
+  "appName": "FoxPlug for Jira",
+  "tagline": "See what your team closed this week and send it to FoxPlug as one draft customer update. Read-only; nothing is posted.",
+  "summary": "Adds a project page, Shipped this week, that lists the issues your team closed in the last 7 days next to your public changelog. One button sends them to FoxPlug as a single draft work record that you approve there.",
+  "moreDetails": "FoxPlug for Jira turns the tickets your team closed into what you tell your customers.\n\nWhat it does:\n- Adds one page to a Jira project, Shipped this week (FoxPlug).\n- Lists the issues closed in the last 7 days (key, title, type), newest first. This works with no setup and no other account.\n- Shows the last entries of your public FoxPlug changelog beside it, so you see what customers were already told.\n- Send to FoxPlug sends the issue keys and titles as ONE draft work record. You read and approve it in FoxPlug. Nothing is posted anywhere for you.\n\nWhat it can see: Jira work items of the project you open (read:jira-work only). It never writes to Jira.\nWhat it sends: issue keys and titles, only when you press Send, to foxplug.com. Details: https://foxplug.com/jira/privacy\n\nSending needs a free FoxPlug account (the only separate account used). Help: https://foxplug.com/jira/support",
+  "highlights": [
+    {
+      "title": "One page for the week's closed work",
+      "summary": "Open Shipped this week in any project and see the issues closed in the last 7 days, with the public changelog beside them. No setup, no extra account.",
+      "caption": "The week's closed issues on the left, what the public changelog already says on the right.",
+      "screenshot": "highlight-1-closed-this-week-1840x900.png",
+      "cropped": "highlight-1-closed-this-week-cropped-580x330.png"
+    },
+    {
+      "title": "Connect once with a plain key",
+      "summary": "Make a plain key in FoxPlug, paste it into the app, pick your FoxPlug project and press Check the key. The key is stored as a Forge secret and never shown again.",
+      "caption": "Connect FoxPlug: three steps, each with a help text. The key is shown once in FoxPlug and kept as a Forge secret.",
+      "screenshot": "highlight-2-connect-with-a-key-1840x900.png",
+      "cropped": "highlight-2-connect-with-a-key-cropped-580x330.png"
+    },
+    {
+      "title": "A draft you approve, never an auto-post",
+      "summary": "Send to FoxPlug keeps one work record, issue keys and titles only. It waits in FoxPlug as a draft; FoxPlug never posts or sends it on its own.",
+      "caption": "The work record from Jira waiting in FoxPlug as a draft, with Approve, Edit and Skip.",
+      "screenshot": "highlight-3-draft-you-approve-1840x900.png",
+      "cropped": "highlight-3-draft-you-approve-cropped-580x330.png"
+    }
+  ],
+  "extraScreenshots": [
+    { "file": "extra-1-nothing-closed-1840x900.png", "explanation": "A quiet week: the page says nothing was closed and sends nothing." },
+    { "file": "extra-2-sent-1840x900.png", "explanation": "After Send to FoxPlug the page confirms in plain words and links to the draft." }
+  ],
+  "releaseSummary": "First Marketplace release: weekly closed-issue page and Send to FoxPlug.",
+  "releaseNotes": "Shipped this week page for any Jira project (issues closed in the last 7 days).\nPublic FoxPlug changelog shown beside it.\nSend to FoxPlug: one draft work record with issue keys and titles; you approve it in FoxPlug.\nCheck the key button; project picker; plain messages for every error.\nRead-only toward Jira (read:jira-work). One outside address: foxplug.com.",
+  "partner": {
+    "name": "FoxPlug",
+    "description": "FoxPlug is a chief of staff for people who build with AI. It reads what you shipped, your payments, traffic and errors, and tells you the one thing to fix, the one to say and the one to skip. Read-only by design: FoxPlug never posts or sends on its own. Run by Saul Fleischman, Osaka, Japan."
+  },
+  "urls": {
+    "privacyPolicy": "https://foxplug.com/jira/privacy",
+    "generalPrivacyPolicy": "https://foxplug.com/legal/privacy",
+    "termsEula": "https://foxplug.com/legal/terms",
+    "support": "https://foxplug.com/jira/support",
+    "documentation": "https://github.com/OsakaSaul/foxplug-for-jira#readme",
+    "workItemTracker": "https://github.com/OsakaSaul/foxplug-for-jira/issues",
+    "supportEmail": "hello@foxplug.com"
+  },
+  "paymentModel": "Free",
+  "suggestedCategory": "Reporting (or the closest of: Project management, Release management)"
+}
